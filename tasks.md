@@ -108,3 +108,14 @@ const unitsItem: Item = {
 };
 
 <!-- Tarefa 3 -->
+- Implementado painel de indicadores na Dashboard:
+
+### Estruturas  criados:
+- `Dashboard/Indicators.tsx`: mostra cards com total de condomínios, unidades, top 5 por m² e por quartos.
+
+### Funcionalidade:
+- Usa `listCondominiums()` e `listUnits()` para obter todos os dados.
+- Ordena localmente e exibe as estatísticas em tabelas simples do Ant Design.
+
+### Página afetada:
+- `Dashboard.page.tsx`: renderiza `<Indicators />` abaixo da saudação.
