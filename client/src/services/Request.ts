@@ -1,5 +1,13 @@
-type Route = `/${string}`;
-type Method = 'get' | 'post' | 'patch' | 'put' | 'delete';
+
+type Route = `/${string}`
+type Method = 'get' | 'post' | 'patch' | 'put' | 'delete'
+
+type ExceptionResponse = {
+    error: {
+        type: string
+        description: string
+    }
+}
 
 export const BASE_URL = import.meta.env.VITE_API_URL || '';
 
@@ -10,10 +18,8 @@ const DEFAULT_HEADERS = {
 
 async function call(route: Route, method: Method, data: unknown) {
     const input: RequestInfo = BASE_URL + route;
-
-    const body: RequestInit['body'] = data !== null
-        ? JSON.stringify(data)
-        : null;
+    const body: RequestInit['body'] =
+        data !== null ? JSON.stringify(data) : null;
 
     const init: RequestInit = {
         body,
@@ -23,12 +29,30 @@ async function call(route: Route, method: Method, data: unknown) {
 
     try {
         const response = await fetch(input, init);
+        const json = await response.json();
 
-        const data = await response.json();
+        if (!response.ok) {
+            throw json as ExceptionResponse;
+        }
 
-        return data;
-    } catch (error) {
-        return error;
+        return json;
+    } catch (error: unknown) {
+        if (
+            error &&
+            typeof error === 'object' &&
+            'error' in error
+        ) {
+            return error as ExceptionResponse;
+        }
+        return {
+            error: {
+                type: 'CLIENT_ERROR',
+                description:
+                    error instanceof Error
+                        ? error.message
+                        : 'Erro inesperado',
+            },
+        };
     }
 }
 

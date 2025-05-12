@@ -18,11 +18,27 @@ export function hasServiceError(response: Service.DefaultResponse | Service.Exce
 export function handleServiceError({ notification }: useAppProps, response: Service.ExceptionResponse, makeMessage?: MakeMessage): void {
     console.log('%cA service error has been detected!', 'background-color: #871f1f; color: white');
 
-    if (response instanceof Error)
-        return notification.error({ message: 'Algo deu errado!', description: response.message });
+    const rawMessage =
+        response instanceof Error
+            ? response.message
+            : response.error?.description ?? 'Erro desconhecido';
 
-    if (makeMessage !== undefined)
-        return notification.error({ message: 'Algo deu errado!', description: makeMessage(response) ?? response.error.description });
+    let customMessage = rawMessage;
 
-    notification.error({ message: 'Algo deu errado!', description: response.error.description });
+    if (rawMessage.includes('Invalid ZIP code format')) {
+        customMessage = 'CEP inválido. Use apenas números (8 dígitos).';
+    }
+
+    if (rawMessage.includes('Duplicate entry')) {
+        customMessage = 'Já existe um condomínio com essa URL.';
+    }
+
+    if (makeMessage !== undefined && !(response instanceof Error)) {
+        customMessage = makeMessage(response) ?? customMessage;
+    }
+
+    notification.error({
+        message: 'Algo deu errado!',
+        description: customMessage,
+    });
 }

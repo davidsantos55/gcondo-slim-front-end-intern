@@ -2,6 +2,7 @@ import type { Condominium } from './Condominium.type';
 
 export namespace Unit {
     export type Model = {
+        id: number;
         name: string,
         square_meters: number,
         bedroom_count: number,
