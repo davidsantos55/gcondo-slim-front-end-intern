@@ -2,6 +2,7 @@ import { createBrowserRouter } from 'react-router';
 
 import { Condominiums } from '@pages/Condominiums.page';
 import { Dashboard } from '@pages/Dashboard.page';
+import {UnitsPage} from '@pages/Units.page';
 
 import { MainLayout } from './MainLayout';
 
@@ -19,6 +20,11 @@ export const router = createBrowserRouter([
             {
                 path: '/condominiums',
                 element: <Condominiums />,
+            },
+
+            {
+                path: '/units',
+                element: <UnitsPage />,
             },
         ]
     },

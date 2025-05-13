@@ -1,8 +1,9 @@
+/* eslint-disable simple-import-sort/imports */
 import { useLocation, useNavigate, useNavigation } from 'react-router';
 
 import { type GetProp, type MenuProps, Spin } from 'antd';
 
-import { BuildOutlined, HomeOutlined } from '@ant-design/icons';
+import { BuildOutlined, HomeOutlined, ApartmentOutlined } from '@ant-design/icons';
 import { Layout } from '@components/Layout';
 
 type Item =  NonNullable<MenuProps['items']>[number];
@@ -31,9 +32,18 @@ export function MainLayout() {
         onClick: () => navigate('/condominiums'),
     };
 
+    const UnitsItem: Item = {
+        key: '/units',
+        icon: <ApartmentOutlined />,
+        label: 'Unidades',
+        onClick: () => navigate('/units'),
+    };
+
+    
     const items = [
         dashboardItem,
-        condominiumsItem
+        condominiumsItem,
+        UnitsItem,
     ];
 
     const sider: GetProp<typeof Layout.Root, 'sider'> = props => (

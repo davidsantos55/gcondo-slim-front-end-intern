@@ -7,7 +7,6 @@ import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 
 import { useUnitsContext } from '@contexts/Units.context';
 import { deleteUnit } from '@services/Unit.service';
-import { handleServiceError, hasServiceError } from '@helpers/Service.helper';
 import { sleep } from '@lib/Sleep';
 
 import type { Unit } from '@internal-types/Unit.type';
@@ -31,8 +30,18 @@ export function UnitsActionsCell({ unit }: Props) {
     await sleep(1000);
     setIsSending(false);
 
-    if (hasServiceError(response)) {
-      return handleServiceError(app, response);
+    if (response instanceof Error){
+      return app.notification.error({
+        message: 'Erro ao excluir unidade',
+        description: response.message,
+      });
+    }
+
+    if (response.statusCode >= 400) {
+      return app.notification.error({
+        message: 'Erro ao excluir unidade',
+        description: response.message,
+      });
     }
 
     setIsPopconfirmVisible(false);

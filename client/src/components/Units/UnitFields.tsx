@@ -20,10 +20,7 @@ export function UnitFields() {
 
   useEffect(() => {
     (async () => {
-      // ⬇️ Aqui o `as` recai sobre o resultado da promise
       const response = (await listCondominiums()) as ListCondominiums.Response;
-
-      // ⬇️ Se não for um erro, podemos usar `response.data.condominiums`
       if (!hasServiceError(response)) {
         setCondominiums(response.data.condominiums);
       }

@@ -1,32 +1,28 @@
-// src/services/contracts/Unit.contract.ts
 import type { Unit } from '@internal-types/Unit.type';
 
 export namespace ListUnits {
   export type Response = {
     statusCode: number;
-    data: {
-      units: Unit.Model[];
-    };
-  }
+    data: { units: Unit.Model[] };
+  };
 }
 
 export namespace FindUnit {
   export type Response = {
     statusCode: number;
-    data: {
-      unit: Unit.Model;
-    };
-  }
+    data: { unit: Unit.Model };
+  };
 }
 
 export namespace CreateUnit {
-  export type Body = Pick<Unit.Model, 'name' | 'square_meters' | 'bedroom_count' | 'condominium_id'>;
+  export type Body = Pick<
+    Unit.Model,
+    'name' | 'square_meters' | 'bedroom_count' | 'condominium_id'
+  >;
   export type Response = {
     statusCode: number;
-    data: {
-      unit: Unit.Model;
-    };
-  }
+    data: { unit: Unit.Model };
+  };
 }
 
 export namespace UpdateUnit {
@@ -38,5 +34,5 @@ export namespace DeleteUnit {
   export type Response = {
     statusCode: number;
     message: string;
-  }
+  };
 }

@@ -1,5 +1,10 @@
+import { Indicators } from '@components/Dashboard/Indicators';
+
 export function Dashboard() {
     return (
-        <span>Bem-vindo(a) ao Gcondo Slim! ✨</span>
+        <>
+            <h2>Bem-vindo(a) ao Gcondo Slim! ✨</h2>
+            <Indicators />
+        </>
     );
 }
