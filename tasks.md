@@ -41,7 +41,7 @@ Foi necessário criar toda a estrutura de CRUD no front-end para o recurso de "U
 
 ### Estrutura criada:
 
-#### 📁 Pastas/Arquivos adicionados:
+####  Pastas/Arquivos adicionados:
 - `client/src/contexts/Units.context.tsx` → Contexto global de Unidades
 - `client/src/components/Units/UnitFields.tsx` → Campos de formulário compartilhados
 - `client/src/components/Units/CreateUnitModal.tsx` → Modal de criação
